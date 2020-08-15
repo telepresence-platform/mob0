@@ -15,6 +15,14 @@
     <div id="map"></div>
 
     <script type="text/javascript">
+    const AVAILABLE_LOCATIONS = [
+      {
+        position: { lat: 35.7139014, lng: 139.7601034 },
+        title: "大銀杏前",
+        url: "https://telepresence-platform.github.io/cocosoco?key=99506149-de1f-4bee-a7d3-b47837e39a53&room=大銀杏前&network=sfu",
+      },
+    ];
+
     function initMap() {
       const options = {
         zoom: 15,
@@ -22,16 +30,21 @@
       };
       const map = new google.maps.Map(document.getElementById("map"), options);
 
-      const icon = "icon.png";
-      const marker = new google.maps.Marker({
-        position: { lat: 35.7139014, lng: 139.7601034 },
-        map: map,
-        icon: icon,
-        title: "cocosoco",
-      });
-      marker.addListener("click", () => {
-        window.open("https://telepresence-platform.github.io/cocosoco?key=99506149-de1f-4bee-a7d3-b47837e39a53&room=sample&network=sfu");
-      });
+      for (const { position, title, url } of AVAILABLE_LOCATIONS) {
+        const infowindow = new google.maps.InfoWindow({
+          content: `<iframe src="${ url }" allow="microphone; camera"></iframe>`,
+        });
+
+        const marker = new google.maps.Marker({
+          position: position,
+          map: map,
+          title: title,
+          icon: "pin_leg.png",
+        });
+        marker.addListener("click", () => {
+          infowindow.open(map, marker);
+        });
+      }
     }
     </script>
 
