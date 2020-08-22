@@ -2,7 +2,7 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
-    <title>Sample_GoogleMap</title>
+    <title>cocosoco map</title>
 
     <style>
     html { height: 100% }
@@ -17,9 +17,10 @@
     <script type="text/javascript">
     const AVAILABLE_LOCATIONS = [
       {
-        position: { lat: 35.7139014, lng: 139.7601034 },
-        title: "大銀杏前",
-        url: "https://telepresence-platform.github.io/cocosoco?key=99506149-de1f-4bee-a7d3-b47837e39a53&room=大銀杏前&network=sfu",
+        position: { lat: 35.7137109, lng: 139.7600179 },
+        title: "大銀杏",
+        cocosocoURL: "https://telepresence-platform.github.io/cocosoco?key=99506149-de1f-4bee-a7d3-b47837e39a53&room=%E5%A4%A7%E9%8A%80%E6%9D%8F&network=sfu",
+        mapURL: `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d404.9385617462501!2d139.76001785468608!3d35.713710945067376!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188d0647b50459%3A0xec9d286f8a66842b!2z5aSn6YqA5p2P!5e0!3m2!1sja!2sjp!4v1598078475251!5m2!1sja!2sjp`,
       },
     ];
 
@@ -30,11 +31,7 @@
       };
       const map = new google.maps.Map(document.getElementById("map"), options);
 
-      for (const { position, title, url } of AVAILABLE_LOCATIONS) {
-        const infowindow = new google.maps.InfoWindow({
-          content: `<iframe src="${ url }" allow="microphone; camera"></iframe>`,
-        });
-
+      for (const { position, title, cocosocoURL, mapURL } of AVAILABLE_LOCATIONS) {
         const marker = new google.maps.Marker({
           position: position,
           map: map,
@@ -42,9 +39,13 @@
           icon: "pin_leg.png",
         });
         marker.addListener("click", () => {
-          infowindow.open(map, marker);
+          window.open(createURL(cocosocoURL, mapURL), "newtab");
         });
       }
+    }
+
+    function createURL(cocosocoURL, mapURL) {
+      return `run.html?cocosoco=${encodeURIComponent(cocosocoURL)}&map=${encodeURIComponent(mapURL)}`;
     }
     </script>
 

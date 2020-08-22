@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <title>cocosoco</title>
+
+    <style>
+    html, body, #cocosoco {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #map {
+      height: 20vw;
+      width: 20vw;
+      position: absolute;
+      bottom: 2vw;
+      right: 2vw;
+    }
+    </style>
+  </head>
+
+  <body>
+    <iframe id="cocosoco" allow="microphone; camera"></iframe>
+    <iframe id="map"></iframe>
+
+    <script type="text/javascript">
+    const url = new URL(document.URL);
+    const cocosoco = url.searchParams.get("cocosoco");
+    const map = url.searchParams.get("map");
+
+    const cocosocoEl = document.querySelector("#cocosoco");
+    cocosocoEl.src = cocosoco;
+
+    const mapEl = document.querySelector("#map");
+    mapEl.src = map;
+    </script>
+  </body>
+</html>
