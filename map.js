@@ -42,12 +42,9 @@ class App {
   onData({ data }) {
     const { latitude, longitude } = data;
 
-    this.provider.setPosition(new google.maps.LatLng(latitude, longitude));
-
-    if (!this.isMapCenterized) {
-      this.isMapCenterized = true;
-      this.map.panTo(new google.maps.LatLng(latitude, longitude));
-    }
+    const latlng = new google.maps.LatLng(latitude, longitude);
+    this.provider.setPosition(latlng);
+    this.map.panTo(latlng);
   }
 
   onPositionChanged(position) {
